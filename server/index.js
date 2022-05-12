@@ -5,15 +5,21 @@ require('dotenv').config()
 const port = process.env.PORT || process.env.SERVER_PORT
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 // const cors = require('cors');
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.use(cors());
-app.use(express.json());
-app.use('/js', express.static(path.join(__dirname, 'public/main.js')));
+app.get('/styles', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.css'));
+});
+
+
+
+// app.use('/js', express.static(path.join(__dirname, 'public/main.js')));
 
 app.listen(port, () => {
     console.log('Listening on port ' + port)
